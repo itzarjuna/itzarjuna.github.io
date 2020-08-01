@@ -113,6 +113,32 @@ body {
     width: 100%;
   }
 }
+<head>
+<style>
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: :-moz-only-whitespace;
+  background-color:red;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
+</head>
 </style>
 </head>
 <body>
@@ -131,8 +157,8 @@ body {
 <!-- Add 2 buttons -->
 <div class="main">
   <h2>Performance of Electric Cars on Highway versus City</h2>
-  <button onclick="update('AverageHighwayMPG')">Highway Mileage</button>
-  <button onclick="update('AverageCityMPG')">City Mileage</button>
+  <button class="button" onclick="update('AverageHighwayMPG')">Highway Mileage</button>
+  <button class="button" onclick="update('AverageCityMPG')">City Mileage</button>
   
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
@@ -249,18 +275,18 @@ body {
     .attr("x2", 150)
     .attr("y2", 05);
     svg.append("circle")
-       .attr("transform", "transla0te(100,0)")   
-       .attr("cx", 80)
+       .attr("transform", "translate(10,0)")   
+       .attr("cx", 70)
        .attr("cy", 01)
        .attr("r",10)
        .style("fill","red");
        svg.selectAll(".graph1-annotation").remove();
        svg.append("text")
        .attr("class","graph1-annotation")
-       .attr("transform", "transla0te(100,0)")   
+       .attr("transform", "translate(10,0)")   
        .attr("x", 150)
        .attr("y", 05)
-       .attr("font-size", "18px")
+       .attr("font-size", "14px")
        .style("fill","Green")
        .text(function(d){if (selectedVar=='AverageHighwayMPG')
         {return "Hyndai EV has the best Mileage on Highway 122 MPG Equivalent 1gallon of gas=33.7kwh";}
