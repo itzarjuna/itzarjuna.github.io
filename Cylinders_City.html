@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Load d3.js -->
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<head>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 80px;
+  text-align: center;
+  background: steelblue;
+  color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 40px;
+}
+
+/* Style the top navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Column container */
+.row {  
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  -ms-flex: 30%; /* IE10 */
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* Main column */
+.main {   
+  -ms-flex: 70%; /* IE10 */
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Gasoline Cars</h1>
+  <p></p>
+</div>
+
+<div class="navbar">
+  <a href="index.html">HOME</a>
+  <a href="Gasoline.html">Gasoline</a>
+  <a href="Cylinders_Highway.html">Cylinders vs Highway Mileage</a>
+  <a href="Cylinders_City.html">Cylinders vs City Mileage</a>
+  <a href="Diesel.html" class="right">Diesel</a>
+</div>
+
+  <div class="main">
+    <h2>Gasonline Cars : # of Cylinders vs City Mileage Comparison</h2>
+      <!-- Create a div where the graph will take place -->
+ 
+
+   
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Load color scale -->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<!-- A bit of CSS: change stroke color of circle on hover (white -> black) -->
+<style>
+.bubbles {
+  stroke-width: 2px;
+  stroke: white;
+}
+.bubbles:hover {
+  stroke: black;
+}
+</style>
+<script>
+
+
+// set the dimensions and margins of the graph
+//var margin = {top: 10, right: 20, bottom: 30, left: 50},
+  //  width = 500 - margin.left - margin.right,
+   // height = 420 - margin.top - margin.bottom;
+   var margin = {top: 30, right: 50, bottom: 120, left: 60},
+        width = 600 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+//Read the data
+d3.csv("https://itzarjuna.github.io/cars.csv", function(cxdata) {
+
+  data=cxdata.filter(function(d){return d.Fuel=='GAS'});
+  // Add X axis
+  var x = d3.scaleLinear()
+    .domain([0, 12])
+    .range([ 0, width ]);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+    svg.append('line')
+    .style("stroke", "red")
+    .style("stroke-width", 2)
+    .attr("x1", 160)
+    .attr("y1", 85)
+    .attr("x2", 32)
+    .attr("y2", 45);
+    // svg.append("circle")
+    //    .attr("transform", "transla0te(100,0)")   
+    //    .attr("cx", 180)
+    //    .attr("cy", 80)
+    //    .attr("r",10)
+    //    .style("fill","red")
+    
+       svg.append("text")
+       .attr("transform", "translate(10,0)")   
+       .attr("x", 10)
+       .attr("y", 40)
+       .attr("font-size", "14px")
+       .style("fill","steelblue")
+       .text("Lexus 4 Cylinders Gasoline Car gives the best mileage in City 39 MPG ")       
+
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([05, 50])
+    .range([ height, 0]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  // Add a scale for bubble size
+  var z = d3.scaleLinear()
+    .domain([16,150])
+    .range([ 4, 40]);
+
+  // Add a scale for bubble color
+  var myColor = d3.scaleOrdinal()
+    //.domain(["Asia", "Europe", "Americas", "Africa", "Oceania"])
+    .domain(data.map(function(d) { return d.Make; }))
+    .range(d3.schemeSet2);
+
+  // -1- Create a tooltip div that is hidden by default:
+  var tooltip = d3.select("#my_dataviz")
+    .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("background-color", "green")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+      .style("color", "white")
+      .style("position","absolute")
+      .style("text-align","center")
+
+  // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
+  var showTooltip = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+    tooltip
+      .style("opacity", 1)
+      .html("Make: " + d.Make + " Mileage= " + d.AverageCityMPG)
+      .style("left", (d3.mouse(this)[0]+30) + "px")
+      .style("top", (d3.mouse(this)[1]+350) + "px")
+  }
+//   var moveTooltip = function(d) {
+//     tooltip
+//       .style("left", (d3.mouse(this)[0]+30) + "px")
+//       .style("top", (d3.mouse(this)[1]+30) + "px")
+//   }
+  var hideTooltip = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+      .style("opacity", 0)
+  }
+// text lable for the x-axis
+        svg.append("text")             
+        .attr("transform","translate(" + (width/2) + " ," + 
+                           (height + margin.top + 20) + ")")
+        .style("text-anchor", "middle")
+        .text("Cylinders");
+
+        svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("AvgCityMPG");    
+
+  // Add dots
+  svg.append('g')
+    .selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("class", "bubbles")
+      .attr("cx", function (d) { return x(+d.EngineCylinders); } )
+      .attr("cy", function (d) { return y(+d.AverageCityMPG); } )
+      .attr("r",6)
+      .style("fill", function (d) { return myColor(d.Make) ;  } )
+    // -3- Trigger the functions
+    .on("mouseover", showTooltip )
+    .on("mousemove", moveTooltip )
+    .on("mouseleave", hideTooltip )
+
+  })
+</script>
