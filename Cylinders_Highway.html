@@ -224,8 +224,7 @@ d3.csv("https://itzarjuna.github.io/cars.csv", function(cxdata) {
 
   // Add a scale for bubble color
   var myColor = d3.scaleOrdinal()
-    //.domain(["Asia", "Europe", "Americas", "Africa", "Oceania"])
-    .domain(data.map(function(d) { return d.Make; }))
+     .domain(data.map(function(d) { return d.Make; }))
     .range(d3.schemeSet2);
 
   // -1- Create a tooltip div that is hidden by default:
